@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf dist/* && tsc -p tsconfig.json",
     "dev": "ts-node ./src/index.ts",
-    "start": "node dist/index.js"
+    "start": "yarn build && node ./dist/index.js"
   },
   "dependencies": {
     "@app/prisma": "*",

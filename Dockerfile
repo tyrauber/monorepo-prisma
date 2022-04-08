@@ -19,9 +19,16 @@ RUN yarn install --production --pure-lockfile --non-interactive --cache-folder .
 COPY --from=deps /app/node_modules/.prisma /app/node_modules/.prisma
 COPY --from=deps /app/apps/ /app/apps/
 COPY --from=deps /app/packages/ /app/packages/
+COPY --from=deps /app/apps/server/dist /app/apps/server/dist
 
 EXPOSE 8080
 ARG PORT 8080
 ENV NODE_ENV production
 
-CMD ["yarn", "start"]
+# ADD entrypoint.sh .
+# RUN chmod +x /app/entrypoint.sh
+# ENTRYPOINT ["/app/entrypoint.sh"]
+
+ENTRYPOINT yarn start
+
+#CMD ["yarn", "start"]
