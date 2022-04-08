@@ -8,7 +8,9 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "dev": "yarn workspaces run dev",
-    "start": "yarn workspaces run start"
+    "start": "yarn workspaces run start",
+    "image:build": "docker buildx build --no-cache --progress=plain -t tyrauber/monorepo-prisma .",
+    "image:start": "docker run -p 8080:8080 -p 3000:3000 tyrauber/monorepo-prisma"
   },
   "devDependencies": {
     "@types/node": "^14.14.12",

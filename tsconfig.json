@@ -1,7 +1,22 @@
 {
-  "extends": "./tsconfig.build.json",
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.stub.ts",
+    "node_modules",
+    "dist"
+  ],
   "compilerOptions": {
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "target": "ES2015",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "paths": {
+      "@app/*": ["./apps/*/", "./packages/*"]
+    }
   },
   "include": [
     "./apps/*/**.ts",

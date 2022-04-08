@@ -9,9 +9,9 @@ git clone git@github.com:nikolasburk/monorepo-prisma.git
 cd monorepo-prisma
 yarn
 yarn build
-yarn dev
+yarn start
 ```
 
-The build script creates server-ready commonjs.
+## Architecture
 
-`yarn start`
+This architecture uses `yarn workspaces` with an `/apps/` and `/packages/`, for long running scripts and libraries respectively.

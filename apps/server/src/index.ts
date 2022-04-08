@@ -5,7 +5,16 @@ const app = express();
 
 app.use(express.json());
 
-app.post(`/user`, async (req, res) => {
+app.get(`/users`, async (req, res) => {
+  const result = await prisma.user.findMany({ select: {
+    email: true,
+    name: true,
+  }});
+  res.json(result);
+});
+
+
+app.post(`/users`, async (req, res) => {
   const result = await prisma.user.create({
     data: {
       ...req.body,
@@ -14,7 +23,7 @@ app.post(`/user`, async (req, res) => {
   res.json(result);
 });
 
-app.post(`/post`, async (req, res) => {
+app.post(`/posts`, async (req, res) => {
   const { title, content, authorEmail } = req.body;
   const result = await prisma.post.create({
     data: {
@@ -36,7 +45,7 @@ app.put("/publish/:id", async (req, res) => {
   res.json(post);
 });
 
-app.delete(`/post/:id`, async (req, res) => {
+app.delete(`/posts/:id`, async (req, res) => {
   const { id } = req.params;
   const post = await prisma.post.delete({
     where: {
@@ -46,7 +55,7 @@ app.delete(`/post/:id`, async (req, res) => {
   res.json(post);
 });
 
-app.get(`/post/:id`, async (req, res) => {
+app.get(`/posts/:id`, async (req, res) => {
   const { id } = req.params;
   const post = await prisma.post.findUnique({
     where: {
@@ -85,8 +94,14 @@ app.get("/filterPosts", async (req, res) => {
   res.json(draftPosts);
 });
 
-const server = app.listen(3000, () =>
+app.get(`*`, async (req, res) => {
+  res.json({message: '404: Not Found'});
+});
+
+
+const {PORT = 8080} = process.env
+const server = app.listen(PORT, () =>
   console.log(
-    "🚀 Server ready at: http://localhost:3000\n⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api"
+    `🚀 Server ready at: http://localhost:${PORT}\n⭐️`
   )
 );

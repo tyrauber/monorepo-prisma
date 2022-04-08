@@ -4,14 +4,17 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npx prisma generate && rm -rf dist/* && tsc -p tsconfig.pkg.json",
+    "build": "rm -rf dist/* && tsc -p tsconfig.json",
     "dev": "npx prisma generate && npx prisma db push",
-    "start": "echo 'nothing to do'"
+    "migrations:new": "npx prisma migrate dev --name ",
+    "start": "npx prisma migrate deploy",
+    "seed": "node ./dist/seed.js"
   },
   "dependencies": {
-    "prisma": "3.11.1"
+    "prisma": "3.11.1",
+    "@prisma/client": "3.11.1",
+    "@faker-js/faker": "^6.1.2"
   },
-  "devDependencies": {
-    "@prisma/client": "3.11.1"
+  "devDependencies": {   
   }
 }
